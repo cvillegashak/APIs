@@ -1,0 +1,3172 @@
+{
+    "openapi" : "3.0.3",
+    "info" : {
+      "title" : "iManage Work Server V2 Resources",
+      "contact" : { },
+      "version" : "1.0.0"
+    },
+    "servers" : [ {
+      "url" : "{{authUrlPrefix}}"
+    }, {
+      "url" : "{{urlPrefix}}"
+    } ],
+    "tags" : [ {
+      "name" : "Work"
+    }, {
+      "name" : "Auth"
+    }, {
+      "name" : "Documents"
+    }, {
+      "name" : "Workspaces"
+    }, {
+      "name" : "Folders"
+    }, {
+      "name" : "Customs"
+    }, {
+      "name" : "My Favorites"
+    }, {
+      "name" : "My Matters"
+    }, {
+      "name" : "Captions"
+    }, {
+      "name" : "Users"
+    }, {
+      "name" : "Trustees"
+    } ],
+    "paths" : {
+      "/api" : {
+        "get" : {
+          "tags" : [ "Work", "Auth" ],
+          "summary" : "Get Discovery",
+          "description" : "Get Discovery",
+          "operationId" : "getDiscovery",
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/custom1/recent" : {
+        "get" : {
+          "tags" : [ "Work", "Customs" ],
+          "summary" : "Get Custom 1 Recent",
+          "description" : "Get Custom 1 Recent",
+          "operationId" : "getCustom1Recent",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/documents" : {
+        "get" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Get Documents",
+          "description" : "Get Documents",
+          "operationId" : "getDocuments",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/folders" : {
+        "get" : {
+          "tags" : [ "Work", "Folders" ],
+          "summary" : "Get Folders",
+          "description" : "Get Folders",
+          "operationId" : "getFolders",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/ACTIVE/workspaces" : {
+        "get" : {
+          "tags" : [ "Work", "Workspaces" ],
+          "summary" : "Get Workspace User Security",
+          "description" : "Get Workspace User Security",
+          "operationId" : "getWorkspaceUserSecurity",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/Active/workspaces/{createdWorkspaceId}/folders" : {
+        "post" : {
+          "tags" : [ "Work", "Folders" ],
+          "summary" : "Create Folder",
+          "description" : "Create Folder",
+          "operationId" : "createFolder",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "createdWorkspaceId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body"
+                },
+                "example" : {
+                  "default_security" : "public",
+                  "description" : "Folder Created For Demo Purposes",
+                  "is_container_saved_search" : false,
+                  "is_content_saved_search" : false,
+                  "is_external" : false,
+                  "is_external_as_normal" : false,
+                  "location" : "Demoville",
+                  "name" : "Demo Folder",
+                  "profile" : {
+                    "class" : "A-NOTE",
+                    "custom1" : "1077",
+                    "custom2" : "4"
+                  }
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/captions" : {
+        "get" : {
+          "tags" : [ "Work", "Captions" ],
+          "summary" : "Get Captions",
+          "description" : "Get Captions",
+          "operationId" : "getCaptions",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/captions/{captionId}" : {
+        "get" : {
+          "tags" : [ "Work", "Captions" ],
+          "summary" : "Get Caption",
+          "description" : "Get Caption",
+          "operationId" : "getCaption",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "captionId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/custom1/recent" : {
+        "get" : {
+          "tags" : [ "Work", "Customs" ],
+          "summary" : "Get Library Custom 1 Recent",
+          "description" : "Get Library Custom 1 Recent",
+          "operationId" : "getLibraryCustom1Recent",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/custom1/{custom1Id}" : {
+        "get" : {
+          "tags" : [ "Work", "Customs" ],
+          "summary" : "Get Library Custom 1",
+          "description" : "Get Library Custom 1",
+          "operationId" : "getLibraryCustom1",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "custom1Id",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/custom1/{custom1Id}/custom2/{custom2Id}" : {
+        "get" : {
+          "tags" : [ "Work", "Customs" ],
+          "summary" : "Get Library Custom 1 To Custom 2",
+          "description" : "Get Library Custom 1 To Custom 2",
+          "operationId" : "getLibraryCustom1ToCustom2",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "custom1Id",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "custom2Id",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/customs/custom1" : {
+        "get" : {
+          "tags" : [ "Work", "Customs" ],
+          "summary" : "Get All Library Custom 1",
+          "description" : "Get All Library Custom 1",
+          "operationId" : "getAllLibraryCustom1",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/customs/custom1/{custom1Id}/custom2/search" : {
+        "get" : {
+          "tags" : [ "Work", "Customs" ],
+          "summary" : "Get Library Custom 1 To Custom Search 2",
+          "description" : "Get Library Custom 1 To Custom Search 2",
+          "operationId" : "getLibraryCustom1ToCustomSearch2",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "custom1Id",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/customs/{customTable}" : {
+        "get" : {
+          "tags" : [ "Work", "Customs" ],
+          "summary" : "Get All Custom Values",
+          "description" : "Get All Custom Values",
+          "operationId" : "getAllCustomValues",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "customTable",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/customs/{customTable}/search" : {
+        "get" : {
+          "tags" : [ "Work", "Customs" ],
+          "summary" : "Get All Custom Values Search",
+          "description" : "Get All Custom Values Search",
+          "operationId" : "getAllCustomValuesSearch",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "customTable",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents" : {
+        "get" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Get Library Documents",
+          "description" : "Get Library Documents",
+          "operationId" : "getLibraryDocuments",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/checked-out" : {
+        "get" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Get Library Checked Out Documents",
+          "description" : "Get Library Checked Out Documents",
+          "operationId" : "getLibraryCheckedOutDocuments",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/{createdDocumentId}" : {
+        "delete" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Delete Document",
+          "description" : "Delete Document",
+          "operationId" : "deleteDocument",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "createdDocumentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_1"
+                },
+                "example" : {
+                  "type" : "value",
+                  "value" : [ true, false, 123, "123", {
+                    "abc" : "123",
+                    "def" : [ ]
+                  } ]
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        },
+        "patch" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Patch Document",
+          "description" : "Patch Document",
+          "operationId" : "patchDocument",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "createdDocumentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_2"
+                },
+                "example" : {
+                  "name" : "Updated Name Field"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/{createdDocumentId}/checkout" : {
+        "post" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Checkout Document",
+          "description" : "Checkout Document",
+          "operationId" : "checkoutDocument",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "createdDocumentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_3"
+                },
+                "example" : {
+                  "appname" : "pdfDocs",
+                  "comments" : "test.",
+                  "due_date" : "2018-08-18T04:46:00Z"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/{createdDocumentId}/file" : {
+        "put" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Update Document Version",
+          "description" : "Generated from a curl request: \ncurl -X POST \\\n  https://wrtest2.imanage.com/api/v1/folders/Active%21108/documents \\\n  -H 'cache-control: no-cache' \\\n  -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \\\n  -H 'postman-token: 356b3308-4185-36ff-d5a7-d3299312313d' \\\n  -H 'x-client-id: f3009e33-a188-4017-a481-6fbf35c9fc5a' \\\n  -H 'x-client-version: 1.0.0.0' \\\n  -F profile=undefined \\\n  -F file=undefined",
+          "operationId" : "updateDocumentVersion",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "createdDocumentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/octet-stream" : { }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/{createdDocumentId}/lock" : {
+        "delete" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Remove Document Lock",
+          "description" : "Remove Document Lock",
+          "operationId" : "removeDocumentLock",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "createdDocumentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_4"
+                },
+                "example" : {
+                  "type" : "value",
+                  "value" : [ true, false, 123, "123", {
+                    "abc" : "123",
+                    "def" : [ ]
+                  } ]
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/{createdDocumentId}/versions" : {
+        "post" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Upload New Document Version",
+          "description" : "Upload New Document Version",
+          "operationId" : "uploadNewDocumentVersion",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "createdDocumentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/octet-stream" : { }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/{documentId}" : {
+        "get" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Get Document",
+          "description" : "Get Document",
+          "operationId" : "getDocument",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "documentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/{documentId}/download" : {
+        "get" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Download Document",
+          "description" : "Download Document",
+          "operationId" : "downloadDocument",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "documentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/{documentId}/download/fileName.txt" : {
+        "get" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Download Document With Filename",
+          "description" : "Download Document With Filename",
+          "operationId" : "downloadDocumentWithFilename",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "documentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/{documentId}/highlights" : {
+        "get" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Get Document Highlights",
+          "description" : "Get Document Highlights",
+          "operationId" : "getDocumentHighlights",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "documentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/{documentId}/history" : {
+        "get" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Get Document History",
+          "description" : "Get Document History",
+          "operationId" : "getDocumentHistory",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "documentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/{documentId}/history/activities" : {
+        "get" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Get Document Activity History",
+          "description" : "Get Document Activity History",
+          "operationId" : "getDocumentActivityHistory",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "documentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/{documentId}/history/users" : {
+        "get" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Get Document User History",
+          "description" : "Get Document User History",
+          "operationId" : "getDocumentUserHistory",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "documentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/{documentId}/history/versions" : {
+        "get" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Get Document Version History",
+          "description" : "Get Document Version History",
+          "operationId" : "getDocumentVersionHistory",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "documentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/{documentId}/name-value-pairs" : {
+        "get" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Get Document NVP",
+          "description" : "Get Document NVP",
+          "operationId" : "getDocumentNvp",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "documentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/documents/{documentId}/operations" : {
+        "get" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Get Document Operations",
+          "description" : "Get Document Operations",
+          "operationId" : "getDocumentOperations",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "documentId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/folders" : {
+        "get" : {
+          "tags" : [ "Work", "Folders" ],
+          "summary" : "Get Library Folders",
+          "description" : "Get Library Folders",
+          "operationId" : "getLibraryFolders",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/folders/{createdFolderId}" : {
+        "patch" : {
+          "tags" : [ "Work", "Folders" ],
+          "summary" : "Patch Folder",
+          "description" : "Patch Folder",
+          "operationId" : "patchFolder",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "createdFolderId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_5"
+                },
+                "example" : {
+                  "name" : "Updated Folder Name"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/folders/{createdFolderId}/documents" : {
+        "post" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Upload Document To Folder",
+          "description" : "Upload Document To Folder",
+          "operationId" : "uploadDocumentToFolder",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "createdFolderId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/octet-stream" : { }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/folders/{createdFolderId}/subfolders" : {
+        "post" : {
+          "tags" : [ "Work", "Folders" ],
+          "summary" : "Create Folder Subfolders",
+          "description" : "Create Folder Subfolders",
+          "operationId" : "createFolderSubfolders",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "createdFolderId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_6"
+                },
+                "example" : {
+                  "default_security" : "public",
+                  "description" : "Sub Folder Created For Demo Purposes",
+                  "is_container_saved_search" : false,
+                  "is_content_saved_search" : false,
+                  "is_external" : false,
+                  "is_external_as_normal" : false,
+                  "location" : "Demoville",
+                  "name" : "Demo Sub Folder",
+                  "profile" : {
+                    "class" : "A-NOTE",
+                    "custom1" : "1077",
+                    "custom2" : "4"
+                  }
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/folders/{folderId}/children" : {
+        "get" : {
+          "tags" : [ "Work", "Folders" ],
+          "summary" : "Get Folder Children",
+          "description" : "Get Folder Children",
+          "operationId" : "getFolderChildren",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "folderId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/folders/{folderId}/documents" : {
+        "get" : {
+          "tags" : [ "Work", "Folders" ],
+          "summary" : "Get Folder Documents",
+          "description" : "Get Folder Documents",
+          "operationId" : "getFolderDocuments",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "folderId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/folders/{folderId}/name-value-pairs" : {
+        "get" : {
+          "tags" : [ "Work", "Folders" ],
+          "summary" : "Get Folder NVP",
+          "description" : "Get Folder NVP",
+          "operationId" : "getFolderNvp",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "folderId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/folders/{folderId}/operations" : {
+        "get" : {
+          "tags" : [ "Work", "Folders" ],
+          "summary" : "Get Folder Operations",
+          "description" : "Get Folder Operations",
+          "operationId" : "getFolderOperations",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "folderId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/folders/{folderId}/search-folders" : {
+        "post" : {
+          "tags" : [ "Work", "Folders" ],
+          "summary" : "Create Folder Search Folders",
+          "description" : "Create Folder Search Folders",
+          "operationId" : "createFolderSearchFolders",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "folderId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_7"
+                },
+                "example" : {
+                  "default_security" : "inherit",
+                  "name" : "Demo Sub Search Folder",
+                  "searchprofile" : {
+                    "documents_only" : "true",
+                    "name" : "Search Parameter"
+                  }
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/folders/{folderId}/security" : {
+        "get" : {
+          "tags" : [ "Work", "Folders" ],
+          "summary" : "Get Folder Security",
+          "description" : "Get Folder Security",
+          "operationId" : "getFolderSecurity",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "folderId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/my-favorites/children" : {
+        "get" : {
+          "tags" : [ "Work", "My Favorites" ],
+          "summary" : "Get My Favorites Children",
+          "description" : "Get My Favorites Children",
+          "operationId" : "getMyFavoritesChildren",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/my-favorites/shortcuts" : {
+        "post" : {
+          "tags" : [ "Work", "My Favorites" ],
+          "summary" : "Create My Favorites Shortcut",
+          "description" : "Create My Favorites Shortcut",
+          "operationId" : "createMyFavoritesShortcut",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_8"
+                },
+                "example" : {
+                  "id" : "{{createdDocumentId}}",
+                  "name" : "Generated Favorites Shortcut"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/recent-documents" : {
+        "get" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Get Library Recent Documents",
+          "description" : "Get Library Recent Documents",
+          "operationId" : "getLibraryRecentDocuments",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/trustees" : {
+        "get" : {
+          "tags" : [ "Work", "Trustees" ],
+          "summary" : "Get Trustees",
+          "description" : "Get Trustees",
+          "operationId" : "getTrustees",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/users" : {
+        "get" : {
+          "tags" : [ "Work", "Users" ],
+          "summary" : "Get Library Users",
+          "description" : "Get Library Users",
+          "operationId" : "getLibraryUsers",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/users/{userId}/my-matters/available-subscriptions" : {
+        "get" : {
+          "tags" : [ "Work", "My Matters" ],
+          "summary" : "Get My Matters Available Subscriptions",
+          "description" : "Get My Matters Available Subscriptions",
+          "operationId" : "getMyMattersAvailableSubscriptions",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "userId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/users/{userId}/my-matters/children" : {
+        "get" : {
+          "tags" : [ "Work", "My Matters" ],
+          "summary" : "Get My Matters Children",
+          "description" : "Get My Matters Children",
+          "operationId" : "getMyMattersChildren",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "userId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/users/{userId}/my-matters/security" : {
+        "get" : {
+          "tags" : [ "Work", "My Matters" ],
+          "summary" : "Get My Matters Security",
+          "description" : "Get My Matters Security",
+          "operationId" : "getMyMattersSecurity",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "userId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/users/{userId}/my-matters/shortcuts" : {
+        "post" : {
+          "tags" : [ "Work", "My Matters" ],
+          "summary" : "Create My Matters Shortcut",
+          "description" : "Create My Matters Shortcut",
+          "operationId" : "createMyMattersShortcut",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "userId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_9"
+                },
+                "example" : {
+                  "id" : "{{createdWorkspaceId}}",
+                  "name" : "Generated Workspace Shortcut"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/users/{userId}/my-matters/subscriptions" : {
+        "get" : {
+          "tags" : [ "Work", "My Matters" ],
+          "summary" : "Get My Matters Subscriptions",
+          "description" : "Get My Matters Subscriptions",
+          "operationId" : "getMyMattersSubscriptions",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "userId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        },
+        "post" : {
+          "tags" : [ "Work", "My Matters" ],
+          "summary" : "Create My Matters Subscription",
+          "description" : "Create My Matters Subscription",
+          "operationId" : "createMyMattersSubscription",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "userId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_10"
+                },
+                "example" : {
+                  "userid" : "{{subscriptionUserId}}"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/workspaces" : {
+        "get" : {
+          "tags" : [ "Work", "Workspaces" ],
+          "summary" : "Get Library Workspaces",
+          "description" : "Get Library Workspaces",
+          "operationId" : "getLibraryWorkspaces",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        },
+        "post" : {
+          "tags" : [ "Work", "Workspaces" ],
+          "summary" : "Create Workspace",
+          "description" : "Create Workspace",
+          "operationId" : "createWorkspace",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_11"
+                },
+                "example" : {
+                  "default_security" : "public",
+                  "description" : "Workspace Created For Demo Purposes",
+                  "name" : "Demo Workspace"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/workspaces/{createdWorkspaceId}" : {
+        "delete" : {
+          "tags" : [ "Work", "Workspaces" ],
+          "summary" : "Delete Workspace",
+          "description" : "Delete Workspace",
+          "operationId" : "deleteWorkspace",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "createdWorkspaceId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_12"
+                },
+                "example" : {
+                  "type" : "value",
+                  "value" : [ true, false, 123, "123", {
+                    "abc" : "123",
+                    "def" : [ ]
+                  } ]
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        },
+        "patch" : {
+          "tags" : [ "Work", "Workspaces" ],
+          "summary" : "Patch Workspace",
+          "description" : "Patch Workspace",
+          "operationId" : "patchWorkspace",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "createdWorkspaceId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_13"
+                },
+                "example" : {
+                  "name" : "Updated Name Field"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/workspaces/{createdWorkspaceId}/folders" : {
+        "post" : {
+          "tags" : [ "Work", "Workspaces" ],
+          "summary" : "Create Workspace Folder",
+          "description" : "Create Workspace Folder",
+          "operationId" : "createWorkspaceFolder",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "createdWorkspaceId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_14"
+                },
+                "example" : {
+                  "name" : "Created Folder"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/workspaces/{createdWorkspaceId}/search-folders" : {
+        "post" : {
+          "tags" : [ "Work", "Workspaces" ],
+          "summary" : "Create Workspace Search Folder Copy",
+          "description" : "Create Workspace Search Folder Copy",
+          "operationId" : "createWorkspaceSearchFolderCopy",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "createdWorkspaceId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_15"
+                },
+                "example" : {
+                  "default_security" : "inherit",
+                  "name" : "Demo Search Folder",
+                  "searchprofile" : {
+                    "documents_only" : "true",
+                    "name" : "Search Parameter"
+                  }
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/workspaces/{createdWorkspaceId}/tabs" : {
+        "post" : {
+          "tags" : [ "Work", "Workspaces" ],
+          "summary" : "Create Workspace Tab",
+          "description" : "Create Workspace Tab",
+          "operationId" : "createWorkspaceTab",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "createdWorkspaceId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_16"
+                },
+                "example" : {
+                  "name" : "Created Tab"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/workspaces/{workspaceId}" : {
+        "get" : {
+          "tags" : [ "Work", "Workspaces" ],
+          "summary" : "Get Workspace",
+          "description" : "Get Workspace",
+          "operationId" : "getWorkspace",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "workspaceId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/workspaces/{workspaceId}/children" : {
+        "get" : {
+          "tags" : [ "Work", "Workspaces" ],
+          "summary" : "Get Workspace Children",
+          "description" : "Get Workspace Children",
+          "operationId" : "getWorkspaceChildren",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "workspaceId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/workspaces/{workspaceId}/name-value-pairs" : {
+        "get" : {
+          "tags" : [ "Work", "Workspaces" ],
+          "summary" : "Get Workspace NVP",
+          "description" : "Get Workspace NVP",
+          "operationId" : "getWorkspaceNvp",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "workspaceId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/workspaces/{workspaceId}/operations" : {
+        "get" : {
+          "tags" : [ "Work", "Workspaces" ],
+          "summary" : "Get Workspace Operations",
+          "description" : "Get Workspace Operations",
+          "operationId" : "getWorkspaceOperations",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "workspaceId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/workspaces/{workspaceId}/security" : {
+        "get" : {
+          "tags" : [ "Work", "Workspaces" ],
+          "summary" : "Get Workspace Security",
+          "description" : "Get Workspace Security",
+          "operationId" : "getWorkspaceSecurity",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "workspaceId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/libraries/{libraryName}/workspaces/{workspaceId}/users/search" : {
+        "get" : {
+          "tags" : [ "Work", "Workspaces" ],
+          "summary" : "Get Workspace Users",
+          "description" : "Get Workspace Users",
+          "operationId" : "getWorkspaceUsers",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "libraryName",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "workspaceId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/recent-documents" : {
+        "get" : {
+          "tags" : [ "Work", "Documents" ],
+          "summary" : "Get Recent Documents",
+          "description" : "Get Recent Documents",
+          "operationId" : "getRecentDocuments",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/api/v2/customers/{customerId}/workspaces" : {
+        "get" : {
+          "tags" : [ "Work", "Workspaces" ],
+          "summary" : "Get Workspaces",
+          "description" : "Get Workspaces",
+          "operationId" : "getWorkspaces",
+          "parameters" : [ {
+            "name" : "customerId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : { }
+          }
+        }
+      },
+      "/oauth2/token" : {
+        "post" : {
+          "tags" : [ "Work", "Auth" ],
+          "summary" : "Refresh Token Login",
+          "description" : "Refresh Token Login",
+          "operationId" : "refreshTokenLogin",
+          "requestBody" : {
+            "content" : {
+              "application/form-urlencoded" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/body_17"
+                },
+                "example" : {
+                  "client_id" : "d7faf138-1f20-4460-8a38-663c004253d7",
+                  "client_secret" : "nmqo93lv5ljvp46g3k41t9kteqf4rik",
+                  "grant_type" : "refresh_token",
+                  "refresh_token" : "{{refreshToken}}"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : { }
+          }
+        }
+      }
+    },
+    "components" : {
+      "schemas" : {
+        "apiv2customerscustomerIdlibrariesActiveworkspacescreatedWorkspaceIdfolders_profile" : {
+          "type" : "object",
+          "properties" : {
+            "class" : {
+              "type" : "string",
+              "example" : "A-NOTE"
+            },
+            "custom1" : {
+              "type" : "string",
+              "example" : "1077"
+            },
+            "custom2" : {
+              "type" : "string",
+              "example" : "4"
+            }
+          }
+        },
+        "body" : {
+          "type" : "object",
+          "properties" : {
+            "default_security" : {
+              "type" : "string",
+              "example" : "public"
+            },
+            "description" : {
+              "type" : "string",
+              "example" : "Folder Created For Demo Purposes"
+            },
+            "is_container_saved_search" : {
+              "type" : "boolean",
+              "example" : false
+            },
+            "is_content_saved_search" : {
+              "type" : "boolean",
+              "example" : false
+            },
+            "is_external" : {
+              "type" : "boolean",
+              "example" : false
+            },
+            "is_external_as_normal" : {
+              "type" : "boolean",
+              "example" : false
+            },
+            "location" : {
+              "type" : "string",
+              "example" : "Demoville"
+            },
+            "name" : {
+              "type" : "string",
+              "example" : "Demo Folder"
+            },
+            "profile" : {
+              "$ref" : "#/components/schemas/apiv2customerscustomerIdlibrariesActiveworkspacescreatedWorkspaceIdfolders_profile"
+            }
+          }
+        },
+        "body_1" : {
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "example" : "value"
+            },
+            "value" : {
+              "type" : "array",
+              "example" : [ true, false, 123, "123", {
+                "abc" : "123",
+                "def" : [ ]
+              } ],
+              "items" : {
+                "example" : true,
+                "anyOf" : [ {
+                  "type" : "boolean",
+                  "example" : true
+                }, {
+                  "type" : "number",
+                  "example" : 123
+                }, {
+                  "type" : "string",
+                  "example" : "123"
+                }, {
+                  "type" : "object",
+                  "properties" : {
+                    "abc" : {
+                      "type" : "string",
+                      "example" : "123"
+                    },
+                    "def" : {
+                      "type" : "array",
+                      "example" : [ ],
+                      "items" : { }
+                    }
+                  }
+                } ]
+              }
+            }
+          }
+        },
+        "body_2" : {
+          "type" : "object",
+          "properties" : {
+            "name" : {
+              "type" : "string",
+              "example" : "Updated Name Field"
+            }
+          }
+        },
+        "body_3" : {
+          "type" : "object",
+          "properties" : {
+            "appname" : {
+              "type" : "string",
+              "example" : "pdfDocs"
+            },
+            "comments" : {
+              "type" : "string",
+              "example" : "test."
+            },
+            "due_date" : {
+              "type" : "string",
+              "example" : "2018-08-18T04:46:00Z"
+            }
+          }
+        },
+        "body_4" : {
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "example" : "value"
+            },
+            "value" : {
+              "type" : "array",
+              "example" : [ true, false, 123, "123", {
+                "abc" : "123",
+                "def" : [ ]
+              } ],
+              "items" : {
+                "example" : true,
+                "anyOf" : [ {
+                  "type" : "boolean",
+                  "example" : true
+                }, {
+                  "type" : "number",
+                  "example" : 123
+                }, {
+                  "type" : "string",
+                  "example" : "123"
+                }, {
+                  "type" : "object",
+                  "properties" : {
+                    "abc" : {
+                      "type" : "string",
+                      "example" : "123"
+                    },
+                    "def" : {
+                      "type" : "array",
+                      "example" : [ ],
+                      "items" : { }
+                    }
+                  }
+                } ]
+              }
+            }
+          }
+        },
+        "body_5" : {
+          "type" : "object",
+          "properties" : {
+            "name" : {
+              "type" : "string",
+              "example" : "Updated Folder Name"
+            }
+          }
+        },
+        "body_6" : {
+          "type" : "object",
+          "properties" : {
+            "default_security" : {
+              "type" : "string",
+              "example" : "public"
+            },
+            "description" : {
+              "type" : "string",
+              "example" : "Sub Folder Created For Demo Purposes"
+            },
+            "is_container_saved_search" : {
+              "type" : "boolean",
+              "example" : false
+            },
+            "is_content_saved_search" : {
+              "type" : "boolean",
+              "example" : false
+            },
+            "is_external" : {
+              "type" : "boolean",
+              "example" : false
+            },
+            "is_external_as_normal" : {
+              "type" : "boolean",
+              "example" : false
+            },
+            "location" : {
+              "type" : "string",
+              "example" : "Demoville"
+            },
+            "name" : {
+              "type" : "string",
+              "example" : "Demo Sub Folder"
+            },
+            "profile" : {
+              "$ref" : "#/components/schemas/apiv2customerscustomerIdlibrariesActiveworkspacescreatedWorkspaceIdfolders_profile"
+            }
+          }
+        },
+        "apiv2customerscustomerIdlibrarieslibraryNamefoldersfolderIdsearchfolders_searchprofile" : {
+          "type" : "object",
+          "properties" : {
+            "documents_only" : {
+              "type" : "string",
+              "example" : "true"
+            },
+            "name" : {
+              "type" : "string",
+              "example" : "Search Parameter"
+            }
+          }
+        },
+        "body_7" : {
+          "type" : "object",
+          "properties" : {
+            "default_security" : {
+              "type" : "string",
+              "example" : "inherit"
+            },
+            "name" : {
+              "type" : "string",
+              "example" : "Demo Sub Search Folder"
+            },
+            "searchprofile" : {
+              "$ref" : "#/components/schemas/apiv2customerscustomerIdlibrarieslibraryNamefoldersfolderIdsearchfolders_searchprofile"
+            }
+          }
+        },
+        "body_8" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "string",
+              "example" : "{{createdDocumentId}}"
+            },
+            "name" : {
+              "type" : "string",
+              "example" : "Generated Favorites Shortcut"
+            }
+          }
+        },
+        "body_9" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "string",
+              "example" : "{{createdWorkspaceId}}"
+            },
+            "name" : {
+              "type" : "string",
+              "example" : "Generated Workspace Shortcut"
+            }
+          }
+        },
+        "body_10" : {
+          "type" : "object",
+          "properties" : {
+            "userid" : {
+              "type" : "string",
+              "example" : "{{subscriptionUserId}}"
+            }
+          }
+        },
+        "body_11" : {
+          "type" : "object",
+          "properties" : {
+            "default_security" : {
+              "type" : "string",
+              "example" : "public"
+            },
+            "description" : {
+              "type" : "string",
+              "example" : "Workspace Created For Demo Purposes"
+            },
+            "name" : {
+              "type" : "string",
+              "example" : "Demo Workspace"
+            }
+          }
+        },
+        "body_12" : {
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "example" : "value"
+            },
+            "value" : {
+              "type" : "array",
+              "example" : [ true, false, 123, "123", {
+                "abc" : "123",
+                "def" : [ ]
+              } ],
+              "items" : {
+                "example" : true,
+                "anyOf" : [ {
+                  "type" : "boolean",
+                  "example" : true
+                }, {
+                  "type" : "number",
+                  "example" : 123
+                }, {
+                  "type" : "string",
+                  "example" : "123"
+                }, {
+                  "type" : "object",
+                  "properties" : {
+                    "abc" : {
+                      "type" : "string",
+                      "example" : "123"
+                    },
+                    "def" : {
+                      "type" : "array",
+                      "example" : [ ],
+                      "items" : { }
+                    }
+                  }
+                } ]
+              }
+            }
+          }
+        },
+        "body_13" : {
+          "type" : "object",
+          "properties" : {
+            "name" : {
+              "type" : "string",
+              "example" : "Updated Name Field"
+            }
+          }
+        },
+        "body_14" : {
+          "type" : "object",
+          "properties" : {
+            "name" : {
+              "type" : "string",
+              "example" : "Created Folder"
+            }
+          }
+        },
+        "body_15" : {
+          "type" : "object",
+          "properties" : {
+            "default_security" : {
+              "type" : "string",
+              "example" : "inherit"
+            },
+            "name" : {
+              "type" : "string",
+              "example" : "Demo Search Folder"
+            },
+            "searchprofile" : {
+              "$ref" : "#/components/schemas/apiv2customerscustomerIdlibrarieslibraryNamefoldersfolderIdsearchfolders_searchprofile"
+            }
+          }
+        },
+        "body_16" : {
+          "type" : "object",
+          "properties" : {
+            "name" : {
+              "type" : "string",
+              "example" : "Created Tab"
+            }
+          }
+        },
+        "body_17" : {
+          "type" : "object",
+          "properties" : {
+            "client_id" : {
+              "type" : "string",
+              "example" : "d7faf138-1f20-4460-8a38-663c004253d7"
+            },
+            "client_secret" : {
+              "type" : "string",
+              "example" : "nmqo93lv5ljvp46g3k41t9kteqf4rik"
+            },
+            "grant_type" : {
+              "type" : "string",
+              "example" : "refresh_token"
+            },
+            "refresh_token" : {
+              "type" : "string",
+              "example" : "{{refreshToken}}"
+            }
+          }
+        }
+      }
+    }
+  }
