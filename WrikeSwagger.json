@@ -1,0 +1,3624 @@
+openapi: 3.0.0
+info:
+  title: Official Wrike Collection v 1.0
+  description: >-
+    Use the collection as a reference to the official [API
+    documentation](https://developers.wrike.com/)documentation/
+
+
+    Once imported you should create an environment with two variables.
+
+
+    APIToken containing your Wrike API Token 
+
+    WrikeAPI containing the API URL Base like 
+
+    * https://www.wrike.com/api/v4
+
+    * https://eu-app.wrike.com/api/v4
+  version: 1.0.0
+servers:
+  - url: undefined://{{WrikeAPI}}
+  - url: https://www.wrike.com
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+tags:
+  - name: Contacts
+  - name: Users
+  - name: Groups
+  - name: Invitations
+  - name: Accounts
+  - name: Workflows
+  - name: Custom Fields
+  - name: Folder & Projects
+  - name: Tasks
+  - name: Comments
+  - name: Dependencies
+  - name: Timelogs
+  - name: Timelog Categories
+  - name: Attachments
+  - name: Versions
+  - name: IDs
+  - name: Colors
+  - name: Spaces
+  - name: Data Export
+  - name: Audit Logs
+  - name: Access Roles
+  - name: Async Jobs
+  - name: Approvals
+  - name: Work Schedules
+  - name: Work Schedule Exceptions
+  - name: User Schedule Exceptions
+  - name: Webhooks
+  - name: NextPageToken
+    description: >-
+      How to use nextPageToken
+
+
+      If you see a nextPageToken in any JSON return results, you need to handle
+      pagination of the result which means the result is containing more items
+      that the allowed pageSize (which for some calls can be controlled) and
+      each API method has a maximum set.
+
+
+      The JSON result will look something like this
+
+
+      {
+        "kind": "tasks",
+        "nextPageToken": "ABOGYKIAAAAAOAAAAABAAAABOEAAAAACBIJUQHBQA5XRM",
+        "responseSize": 369,
+        "data": [...]
+      }
+
+
+      See examples in this folder how to use nextPageToken
+  - name: Meta Data
+paths:
+  /contacts:
+    get:
+      tags:
+        - Contacts
+      summary: Get All Contacts
+      description: >-
+        The API call will get all contact records in Wrike. This includes user
+        records and groups.
+
+
+        https://developers.wrike.com/api/v4/contacts/#query-contacts
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /contacts/KUAFY3BJ:
+    get:
+      tags:
+        - Contacts
+      summary: Get Information about specific contact
+      description: >-
+        This API call will get information about a specifc user or group in
+        Wrike. Options are to get metadata and the ID of the associated work
+        schedule
+
+
+        https://developers.wrike.com/api/v4/contacts/#query-contacts
+      parameters:
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: '[metadata,workScheduleId]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - Contacts
+      summary: Update Metadata on Specific Contact
+      description: >-
+        This API call will update the meta data on the user contact record. Be
+        aware that the meta data record can only be accessed by the user self.
+
+
+        https://developers.wrike.com/api/v4/contacts/#modify-contact
+      requestBody:
+        content: {}
+      parameters:
+        - name: metadata
+          in: query
+          schema:
+            type: string
+          example: '[{"key":"ForeignKey","value":"100"}]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users/KUAFE77B:
+    get:
+      tags:
+        - Users
+      summary: Get Specific User
+      description: >-
+        This API method will get details about a specific User. You can get the
+        ID using the Contacts methods
+
+
+        https://developers.wrike.com/api/v4/users/#query-user
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users/KUAH2VZU:
+    put:
+      tags:
+        - Users
+      summary: Update Specific User
+      description: >-
+        This API method can update a user account on specific Wrike Account,
+        with a specific Role (User or Collaborator) and you can toggle the user
+        between regular and collborator. 
+
+
+        The included example updates the user KUAH2VZU on account IEACW7SV. The
+        user is made a external user (role=user and external=true)
+
+
+        https://developers.wrike.com/api/v4/users/#modify-user
+      requestBody:
+        content: {}
+      parameters:
+        - name: profile
+          in: query
+          schema:
+            type: string
+          example: '{"accountId":"IEACW7SV","role":"User","external":"true"}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /groups:
+    get:
+      tags:
+        - Groups
+      summary: Query all Groups
+      description: |-
+        This API call will get all groups in Wrike
+
+        https://developers.wrike.com/api/v4/groups/#query-groups
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Groups
+      summary: Create Group
+      description: >-
+        This API call will create a new group Wrike named "New Group" with a
+        single member "KUAH2VZU". 
+
+        The group will be a sub-group to "KX73D4KC". 
+
+        The group avatar will be "01" with a very light green color. 
+
+        It will have a metadata key named "foreignKey" with the value "100"
+
+
+        https://developers.wrike.com/api/v4/groups/#create-groups
+      requestBody:
+        content: {}
+      parameters:
+        - name: title
+          in: query
+          schema:
+            type: string
+          example: New Group
+        - name: members
+          in: query
+          schema:
+            type: string
+          example: '[KUAH2VZU]'
+        - name: parent
+          in: query
+          schema:
+            type: string
+          example: KX73D4KC
+        - name: avatar
+          in: query
+          schema:
+            type: string
+          example: '{"letters":"01","color":"#6EFF33"}'
+        - name: metadata
+          in: query
+          schema:
+            type: string
+          example: '[{"key":"foreignKey","value":"100"}]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /groups/KX73B4IV:
+    get:
+      tags:
+        - Groups
+      summary: Query Specific Group
+      description: |-
+        This API call will get a specific group in Wrike
+
+        https://developers.wrike.com/api/v4/groups/#query-groups
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - Groups
+      summary: Modify Group
+      description: >-
+        This API call will update the group Wrike with ID "KX73B4IV"
+         
+        The name of the group will be "Old Group" and two new members will be
+        added ("KUAFY3BJ" and "KUAHUBHL")
+
+        The group avatar will be updated to be "02" with a sharp pink color. 
+
+        The meta data key "foreignKey" will be created or updated with the value
+        "200"
+
+
+        It is also possible to add/update a parent group. In this example the
+        parameter is turned off
+
+
+        https://developers.wrike.com/api/v4/groups/#modify-groups
+      requestBody:
+        content: {}
+      parameters:
+        - name: title
+          in: query
+          schema:
+            type: string
+          example: Old Group
+        - name: addMembers
+          in: query
+          schema:
+            type: string
+          example: '[KUAFY3BJ,KUAHUBHL]'
+        - name: avatar
+          in: query
+          schema:
+            type: string
+          example: '{"letters":"02","color":"#FF33D7"}'
+        - name: metadata
+          in: query
+          schema:
+            type: string
+          example: '[{"key":"foreignKey","value":"200"}]'
+        - name: parent
+          in: query
+          schema:
+            type: string
+          example: KX73D4KC
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Groups
+      summary: Delete Group
+      description: |-
+        Delete the group "KX73B4IV"
+
+        http://developers.wrike.com/api/v4/groups/#delete-groups
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /invitations:
+    get:
+      tags:
+        - Invitations
+      summary: Query Invitations
+      description: |-
+        Get all invitations
+
+        https://developers.wrike.com/api/v4/invitations/#query-invitations
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Invitations
+      summary: Create Invitation
+      description: >-
+        Send a new invitation to email carl.stevens@example.com. The invitation
+        is for user to join as external user
+
+
+        If you are on a paid account you can customize subject and message send
+        to the user (disabled in this example)
+
+
+        https://developers.wrike.com/api/v4/invitations/#query-invitations
+      requestBody:
+        content: {}
+      parameters:
+        - name: email
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: carl.stevens@example.com
+        - name: firstName
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: Carl
+        - name: lastName
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: Stevens
+        - name: role
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: User
+        - name: external
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'true'
+        - name: subject
+          in: query
+          schema:
+            type: string
+          description: Not available for Free Accounts
+          example: Invitation to Our Wrike
+        - name: message
+          in: query
+          schema:
+            type: string
+          description: Not available for Free Accounts
+          example: Here is your personal invitation to our Wrike account
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /invitations/IEACW7SVJEAIX5WI:
+    put:
+      tags:
+        - Invitations
+      summary: Update Invitation
+      description: >-
+        When you update an invitation, you can elect to resend the invitation
+        with the parameter "resend"
+
+
+        In the same update you can also update the role to either "user" or
+        "collaborator". 
+
+        If you update to "user" you can also troggle between "regular" or
+        "external" user by setting the "external" parameter "true" or "false"
+
+
+        https://developers.wrike.com/api/v4/invitations/#update-invitation
+      requestBody:
+        content: {}
+      parameters:
+        - name: resend
+          in: query
+          schema:
+            type: string
+          description: Optional
+        - name: role
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: user
+        - name: external
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'false'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Invitations
+      summary: Delete Inivtation
+      description: |-
+        You can delete the invitation by simply providing the IP
+
+        https://developers.wrike.com/api/v4/invitations/#delete-invitation
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /account:
+    get:
+      tags:
+        - Accounts
+      summary: Get Account Information
+      parameters:
+        - name: fields
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[subscription,metadata,customFields]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - Accounts
+      summary: Modify Account
+      requestBody:
+        content: {}
+      parameters:
+        - name: metadata
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: >-
+            [{"key":"foreignKey","value":"100"},{"key":"foreignKey2","value":"200"}]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /workflows:
+    get:
+      tags:
+        - Workflows
+      summary: Query Workflows
+      description: |-
+        Get all workflows in the account
+
+        https://developers.wrike.com/api/v4/workflows/#query-workflows
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Workflows
+      summary: Create Workflows
+      description: |-
+        Create a new workflow with the name "New Workflow"
+
+        It will be create with an Active and Completed workflow status
+
+        https://developers.wrike.com/api/v4/workflows/#create-workflow
+      requestBody:
+        content: {}
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+          example: New Workflow
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /workflows/IEACW7SVK4BOUL4E:
+    put:
+      tags:
+        - Workflows
+      summary: Modify Workflows
+      description: >-
+        Update the workflow. You can update the Name, add new workflow states
+        and toggle the hidden flag which will hide the workflow in the Wrike UI
+
+
+        https://developers.wrike.com/api/v4/workflows/#query-workflows
+      requestBody:
+        content: {}
+      parameters:
+        - name: hidden
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'false'
+        - name: customStatus
+          in: query
+          schema:
+            type: string
+          description: Optional and will only add new states
+          example: '{"name":"In design","color":"Green","group":"Active"}'
+        - name: name
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: New Workflow Test
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /customfields:
+    get:
+      tags:
+        - Custom Fields
+      summary: Get All Custom Fields
+      description: |-
+        Get all custom fields
+
+        https://developers.wrike.com/api/v4/custom-fields/#query-custom-fields
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Custom Fields
+      summary: Create Custom Field
+      description: >-
+        Create a new custom field. This can be simple or complex. Check
+        documentation for details on the parameter settings
+
+
+        In this example, create new new custom field with the name "New Custom
+        Field" with the type "DropDown". 
+
+
+        The custom field is shared with two users [KUAH2VZU,KUAFY3BJ] and
+        applies to Projects only.
+
+
+        The values of the dropdown is [A,B,C] and users are allowed to provide
+        other values as well.
+
+
+        https://developers.wrike.com/api/v4/custom-fields/#create-custom-field
+      requestBody:
+        content: {}
+      parameters:
+        - name: title
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: New Custom Field
+        - name: type
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: DropDown
+        - name: shareds
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[KUAH2VZU,KUAFY3BJ]'
+        - name: settings
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: >-
+            {"inheritanceType":"Projects","values":
+            ["A","B","C"],"allowOtherValues":"true"}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /customfields/IEACW7SVJUABN6OT:
+    get:
+      tags:
+        - Custom Fields
+      summary: Query Customfields
+      description: |-
+        Get details of custom fields. Provide IDs in a list (up to 100 IDs)
+
+        https://developers.wrike.com/api/v4/custom-fields/#query-custom-fields
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - Custom Fields
+      summary: Modify Custom Field
+      description: >-
+        Modify existin custom field. This can be simple or complex. Check
+        documentation for details on the parameter settings
+
+
+        In this example, the custom field gets the name "Old Custom Field" and
+        the type is updated to "DropDown". 
+
+
+        The custom field is shared with addtional two users [KUAGQUT3,KUAH3CJL]
+        and user [KUAH2VZU] is removed.
+
+
+        The settings are not updated but can be.
+
+
+        https://developers.wrike.com/api/v4/custom-fields/#modify-custom-field
+      requestBody:
+        content: {}
+      parameters:
+        - name: title
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: Old Custom Field
+        - name: type
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: DropDown
+        - name: addShareds
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[KUAGQUT3,KUAH3CJL]'
+        - name: removeShareds
+          in: query
+          schema:
+            type: string
+          example: '[KUAH2VZU]'
+        - name: settings
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: >-
+            {"inheritanceType":"Projects","values":
+            ["A","B","C"],"allowOtherValues":"true"}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Custom Fields
+      summary: Delete Custom Field
+      description: >-
+        Delete a custom field.
+
+
+        This is a hidden API Method and is not documented in the official API
+        documentation
+
+
+        Be very careful when using this method. It will remove not only the
+        custom field but also the data stored in them. There is not ability to
+        restore any of this
+      parameters:
+        - name: settings
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: >-
+            {"inheritanceType":"Projects","values":
+            ["A","B","C"],"allowOtherValues":"true"}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /folders:
+    get:
+      tags:
+        - Folder & Projects
+      summary: Get Folder by Permalink
+      description: >-
+        Get folder by permalink
+
+
+        This is a very efficient way to get from the Wrike UI to the API. If you
+        want to find the specific folder or project you are using in the Wrike
+        UI simple turn the permalink into a Wrike API ID
+
+
+        https://developers.wrike.com/api/v4/folders-projects/#get-folder-tree
+      parameters:
+        - name: null
+          in: query
+          schema:
+            type: string
+        - name: permalink
+          in: query
+          schema:
+            type: string
+          example: https://www.wrike.com/open.htm?id=530304206
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /folders/IEACW7SVI4KTHAHN/folders:
+    get:
+      tags:
+        - Folder & Projects
+      summary: Get Folder Tree (Space) by updated Date
+      description: >-
+        Get all Folders (Project false) on the account (descendants true) that
+        was updated between
+
+
+        {"start":"2020-06-01T00:00:00Z","end":"2020-06-29T13:11:22Z"}
+
+
+        Return all possible fields
+
+
+        https://developers.wrike.com/api/v4/folders-projects/#get-folder-tree
+      parameters:
+        - name: descendants
+          in: query
+          schema:
+            type: boolean
+          description: Optional (true or false)
+          example: 'true'
+        - name: updatedDate
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '{"start":"2020-06-01T00:00:00Z","end":"2020-06-29T13:11:22Z"}'
+        - name: project
+          in: query
+          schema:
+            type: boolean
+          description: Optional (true or false)
+          example: 'false'
+        - name: fields
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: >-
+            [metadata,hasAttachments,attachmentCount,description,briefDescription,customFields,customColumnIds,superParentIds,space,contractType]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /folders/IEACW7SVI4PMYIO6/folders:
+    get:
+      tags:
+        - Folder & Projects
+      summary: Get Folder Tree (Folder) by custom field
+      description: >-
+        Get all Folders/Projects under [IEACW7SVI4PMYIO6] (descendants true)
+        where the value of custom field [IEACW7SVJUABJLU7] is [EqualTo] "Foster
+        Brewing"
+
+
+        Return all possible fields
+
+
+        https://developers.wrike.com/api/v4/folders-projects/#get-folder-tree
+      parameters:
+        - name: descendants
+          in: query
+          schema:
+            type: boolean
+          example: 'true'
+        - name: customField
+          in: query
+          schema:
+            type: string
+          example: >-
+            {"id":"IEACW7SVJUABJLU7","comparator":"EqualTo","value":"Foster
+            Brewing"}
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: >-
+            [metadata,hasAttachments,attachmentCount,description,briefDescription,customFields,customColumnIds,superParentIds,space,contractType]
+        - name: customField
+          in: query
+          schema:
+            type: string
+          description: Optional
+        - name: updatedDate
+          in: query
+          schema:
+            type: string
+          description: Optional
+        - name: contractTypes
+          in: query
+          schema:
+            type: string
+          description: Optional (Wrike Resource Only [Billable|Non-Billable])
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Folder & Projects
+      summary: Create Folder
+      description: >-
+        Create a new Folder with the name "New Folder" and a short description
+
+
+        The Folder is shared with the users [KUAH2VZU,KUAFY3BJ] and has to meta
+        keys [foreignKey, foreignKey2]
+
+
+        https://developers.wrike.com/api/v4/folders-projects/#create-folder
+      requestBody:
+        content: {}
+      parameters:
+        - name: title
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: New Folder
+        - name: description
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: This is a new folder
+        - name: shareds
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[KUAH2VZU,KUAFY3BJ]'
+        - name: metadata
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: >-
+            [{"key":"foreignKey","value":"100"},{"key":"foreignKey2","value":"200"}]
+        - name: customFields
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[{"customFieldsId":"value"}]'
+        - name: customColumns
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '["customFieldsId","customFieldIds"]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /folders/IEACW7SVI4PX3YZS:
+    get:
+      tags:
+        - Folder & Projects
+      summary: Get Folder by Title
+      description: |-
+        Get folder/project by ID
+
+        Return all possible values
+
+        https://developers.wrike.com/api/v4/folders-projects/#get-folder-tree
+      parameters:
+        - name: null
+          in: query
+          schema:
+            type: string
+        - name: textSearch
+          in: query
+          schema:
+            type: string
+          example: '''This is my project'''
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /folders/IEACW7SVI4PMYIO6:
+    put:
+      tags:
+        - Folder & Projects
+      summary: Move Folder/Project to Another Folder
+      description: >-
+        Update project name to "New Project 2" and the description.
+
+
+        Add a parent folder [IEACW7SVI4MGTQJQ] and share with additionally one
+        user [KUAGQUTS]
+
+
+        Unshare the folder with two users [KUAGQU3I,KUAH2VZU] and add two meta
+        keys to the project
+
+
+        Update the project owner, status and start/end date as well
+
+
+        Add contractType to the return result
+
+
+        https://developers.wrike.com/api/v4/folders-projects/#modify-folder
+      requestBody:
+        content: {}
+      parameters:
+        - name: addParents
+          in: query
+          schema:
+            type: string
+          example: IEACW7SVI4PX3ZTA
+        - name: removeParents
+          in: query
+          schema:
+            type: string
+          example: IEACW7SVI4PX3ZTB
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /folders/IEACW7SVI4PX3ZTA:
+    put:
+      tags:
+        - Folder & Projects
+      summary: Modify Folder
+      description: >-
+        Update folder name to "New Folder 2" and the description.
+
+
+        Remove the folder from the parent folder/project [IEACW7SVI4MGTQJQ]
+
+
+        Share the folder with two users [KUAGQU3I,KUAH2VZU] and add/update the
+        custom field [IEACW7SVJUABJLU7] to the value "GlenCorp"
+
+
+        Add contractType to the return result
+
+
+        https://developers.wrike.com/api/v4/folders-projects/#modify-folder
+      requestBody:
+        content: {}
+      parameters:
+        - name: customFields
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[{"id":"IEACW7SVJUABJLU7","value":"GlenCorp"}]'
+        - name: fields
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[contractType]'
+        - name: title
+          in: query
+          schema:
+            type: string
+          example: New Folder 2
+        - name: description
+          in: query
+          schema:
+            type: string
+          example: This is an updated folder
+        - name: removeParents
+          in: query
+          schema:
+            type: string
+          example: '[IEACW7SVI4MGTQJQ]'
+        - name: addShareds
+          in: query
+          schema:
+            type: string
+          example: '[KUAGQU3I,KUAH2VZU]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Folder & Projects
+      summary: Delete Folder
+      description: |-
+        Delete the folder
+
+        https://developers.wrike.com/api/v4/folders-projects/#delete-folder
+      parameters:
+        - name: null
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /folders/IEACW7SVI4PMYIO6,IEACW7SVI4PMYIO6,IEACW7SVI4PX3YZS:
+    put:
+      tags:
+        - Folder & Projects
+      summary: Mass Update Custom Fields on Folders/Projects
+      description: >-
+        Mass update up to 100 folders/projects with a single call. You can add
+        or update the values of custom fields
+
+
+        The example updates a single custom field value on 3 folders/projects
+
+
+        https://developers.wrike.com/api/v4/folders-projects/#modify-folder
+      requestBody:
+        content: {}
+      parameters:
+        - name: customFields
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[{"id":"IEACW7SVJUABJLU7","value":"GlenCorp"}]'
+        - name: fields
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[contractType]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /copy_folder/IEACW7SVI4OMYHGQ:
+    post:
+      tags:
+        - Folder & Projects
+      summary: Copy Template (Folder/Project)
+      description: >-
+        Copy Folder is the equivilent of the duplication in the Wrike UI
+
+
+        The parameters mostly follows what you can do in the UI
+
+
+        The example here creates a copy of the project [IEACW7SVI4OMYHGQ] and
+        places the duplicate in the folder [IEACW7SVI4PMYIO6]
+
+
+        The new project will be named "New Project from Template" and all
+        tasks/folders will be prefix'ed with "NPFT"
+
+
+        Include descriptions, responsibled, custom fields and custom statuses in
+        the new copy
+
+
+        https://developers.wrike.com/api/v4/folders-projects/#copy-folder
+      requestBody:
+        content: {}
+      parameters:
+        - name: parent
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: IEACW7SVI4PMYIO6
+        - name: title
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: New Project from Template
+        - name: titlePrefix
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: NPFT
+        - name: copyDescriptions
+          in: query
+          schema:
+            type: boolean
+          description: Optional (true or false)
+          example: 'true'
+        - name: copyResponsibles
+          in: query
+          schema:
+            type: boolean
+          description: Optional (true or false)Optional
+          example: 'true'
+        - name: addResponsibles
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[]'
+        - name: removeResponsibles
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[]['
+        - name: copyCustomFields
+          in: query
+          schema:
+            type: boolean
+          description: Optional (true or false)
+          example: 'true'
+        - name: copyCustomStatuses
+          in: query
+          schema:
+            type: boolean
+          description: Optional (true or false)
+          example: 'true'
+        - name: copyStatuses
+          in: query
+          schema:
+            type: boolean
+          description: Optional (true or false)
+          example: 'true'
+        - name: copyParents
+          in: query
+          schema:
+            type: boolean
+          description: >-
+            Optional (most likely false else it will be tagged to your template
+            folder)
+          example: 'false'
+        - name: rescheduleDate
+          in: query
+          schema:
+            type: string
+          description: Optional (yyyy-MM-dd)
+        - name: rescheduleMode
+          in: query
+          schema:
+            type: string
+          description: Optional (start or end)
+        - name: entryLimit
+          in: query
+          schema:
+            type: string
+          description: Optional (max 250)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /copy_folder_async/IEACW7SVI4OMYHGQ:
+    post:
+      tags:
+        - Folder & Projects
+      summary: Copy Template Async (Folder/Project)
+      description: >-
+        Copy Folder is the equivilent of the duplication in the Wrike UI
+
+
+        The parameters mostly follows what you can do in the UI
+
+
+        The example here creates a copy of the project [IEACW7SVI4OMYHGQ] and
+        places the duplicate in the folder [IEACW7SVI4PMYIO6]
+
+
+        The new project will be named "New Project from Template" and all
+        tasks/folders will be prefix'ed with "NPFT"
+
+
+        Include descriptions, responsibled, custom fields and custom statuses in
+        the new copy
+
+
+        https://developers.wrike.com/api/v4/folders-projects/#copy-folder
+      requestBody:
+        content: {}
+      parameters:
+        - name: parent
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: IEACW7SVI4PMYIO6
+        - name: title
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: New Project from Template Async
+        - name: titlePrefix
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: NPFTA
+        - name: copyDescriptions
+          in: query
+          schema:
+            type: boolean
+          description: Optional (true or false)
+          example: 'true'
+        - name: copyResponsibles
+          in: query
+          schema:
+            type: boolean
+          description: Optional (true or false)Optional
+          example: 'true'
+        - name: addResponsibles
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[]'
+        - name: removeResponsibles
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[]['
+        - name: copyCustomFields
+          in: query
+          schema:
+            type: boolean
+          description: Optional (true or false)
+          example: 'true'
+        - name: copyCustomStatuses
+          in: query
+          schema:
+            type: boolean
+          description: Optional (true or false)
+          example: 'true'
+        - name: copyStatuses
+          in: query
+          schema:
+            type: boolean
+          description: Optional (true or false)
+          example: 'true'
+        - name: copyParents
+          in: query
+          schema:
+            type: boolean
+          description: >-
+            Optional (most likely false else it will be tagged to your template
+            folder)
+          example: 'false'
+        - name: rescheduleDate
+          in: query
+          schema:
+            type: string
+          description: Optional (yyyy-MM-dd)
+        - name: rescheduleMode
+          in: query
+          schema:
+            type: string
+          description: Optional (start or end)
+        - name: entryLimit
+          in: query
+          schema:
+            type: string
+          description: Optional (max 250)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /tasks:
+    get:
+      tags:
+        - Meta Data
+      summary: Search Meta Data
+      parameters:
+        - name: metadata
+          in: query
+          schema:
+            type: string
+          example: '{"key":"SFDCID","value":"12345"}'
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: '[metadata]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /tasks/IEACW7SVKQPLYHTR:
+    get:
+      tags:
+        - Tasks
+      summary: Get Task by ID
+      description: |-
+        Get task information by ID
+
+        https://developers.wrike.com/api/v4/tasks/#query-tasks
+      parameters:
+        - name: fields
+          in: query
+          schema:
+            type: string
+          description: Optional (effortAllocation is only supported with Wrike Resource)
+          example: '[recurrent,attachmentCount,effortAllocation,billingType]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /tasks/IEACW7SVKQPX4WGU,IEACW7SVKQPX4WHN:
+    get:
+      tags:
+        - Tasks
+      summary: Get Multiple Tasks by ID
+      description: |-
+        Get multiple tasks by comma separated IDs
+
+        https://developers.wrike.com/api/v4/tasks/#query-tasks
+      parameters:
+        - name: fields
+          in: query
+          schema:
+            type: string
+          description: Optional (effortAllocation is only supported with Wrike Resource)
+          example: '[recurrent,attachmentCount,effortAllocation,billingType]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - Tasks
+      summary: Update Multiple Tasks Custom Field Values
+      description: >-
+        Update multiple tasks separated by comma. You can update custom fields
+        and effort allocation (not included in this example)
+
+
+        https://developers.wrike.com/api/v4/tasks/#modify-tasks
+      requestBody:
+        content: {}
+      parameters:
+        - name: customFields
+          in: query
+          schema:
+            type: string
+          example: >-
+            [{"id":"IEACW7SVJUAA73HW","value":"ABC"},{"id":"IEACW7SVJUAA75KE","value":"100"}]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /spaces/IEACW7SVI4O6BDQE/tasks:
+    get:
+      tags:
+        - Tasks
+      summary: Query Tasks in a specific Space
+      description: >-
+        Search for tasks in a specific space
+
+
+        The result will only include tasks that is shared with the authenticated
+        user (determined by the API Token)
+
+
+        https://developers.wrike.com/api/v4/tasks/#query-tasks
+      parameters:
+        - name: descendants
+          in: query
+          schema:
+            type: boolean
+          description: Optional (true or false)
+          example: 'true'
+        - name: status
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: Active
+        - name: importance
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: Normal
+        - name: type
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: Planned
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: '[recurrent,attachmentCount,effortAllocation,billingType]'
+        - name: dueDate
+          in: query
+          schema:
+            type: string
+          example: '{"start":"2020-07-01","end":"2020-07-07"}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /folders/IEACW7SVI4OMYFIY/tasks:
+    get:
+      tags:
+        - NextPageToken
+      summary: Query Tasks in a specific Folder/Project using nextPageToken
+      description: >-
+        Get the next result set page of task
+
+
+        Look out of another nextPageToken which will indicate that you need to
+        continue getting more pages. Continue until you do not have a
+        nextPageToken in the JSON result
+
+
+        The result will only include tasks that is shared with the authenticated
+        user (determined by the API Token)
+
+
+        https://developers.wrike.com/api/v4/tasks/#query-tasks
+      parameters:
+        - name: nextPageToken
+          in: query
+          schema:
+            type: string
+          description: Required (overrides all other parameters in request)
+          example: ABOGYKIAAAAAOAAAAABAAAABOEAAAAACBILN4OOHJQPZE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /folders/IEACW7SVI4OMYHGQ/tasks:
+    post:
+      tags:
+        - Tasks
+      summary: Create a Milestone Task in folder with schedule
+      description: |-
+        Create a new task in a folder
+
+        https://developers.wrike.com/api/v4/tasks/#create-task
+      requestBody:
+        content: {}
+      parameters:
+        - name: title
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: New Milestone
+        - name: description
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: This is a longer description<br />You can also include <b>HTML</b>
+        - name: status
+          in: query
+          schema:
+            type: string
+          description: Optional (only if customStatus is not set)
+          example: Active
+        - name: importance
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: Normal
+        - name: dates
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '{"type":"Milestone","due":"2020-07-08"}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /tasks/IEACW7SVKQPZEWKI:
+    put:
+      tags:
+        - Tasks
+      summary: Update Task description and schedule
+      description: >-
+        Update Task by ID. You can update a lot of different parts of the task
+        this way.
+
+
+        https://developers.wrike.com/api/v4/tasks/#modify-tasks
+      requestBody:
+        content: {}
+      parameters:
+        - name: title
+          in: query
+          schema:
+            type: string
+          example: New Task with Effort Updated
+        - name: description
+          in: query
+          schema:
+            type: string
+          example: >-
+            This is an even longer description<br />You can also include
+            <b>HTML</b> and some <a href="https://wrike.com">formatiing</a>
+        - name: status
+          in: query
+          schema:
+            type: string
+          example: Active
+        - name: importance
+          in: query
+          schema:
+            type: string
+          example: Normal
+        - name: dates
+          in: query
+          schema:
+            type: string
+          example: '{"type":"Planned","start":"2020-07-13","due":"2020-07-15"}'
+        - name: effortAllocation
+          in: query
+          schema:
+            type: string
+          example: '{"mode":"Basic","totalEffort":240}'
+        - name: billingType
+          in: query
+          schema:
+            type: string
+          example: Billable
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: '[effortAllocation,billingType]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /tasks/IEACW7SVKQPZDVXU:
+    delete:
+      tags:
+        - Tasks
+      summary: Delete Task
+      description: |-
+        Delete task by ID
+
+        https://developers.wrike.com/api/v4/tasks/#delete-tasks
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /comments:
+    get:
+      tags:
+        - Comments
+      summary: Get Comments
+      description: |-
+        Get all comments on all items shared with you
+
+        https://developers.wrike.com/api/v4/comments/#get-comments
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /folders/IEACW7SVI4OMYHGQ/comments:
+    get:
+      tags:
+        - Comments
+      summary: Get Comments on Folder or Project
+      description: |-
+        Get all comments on a specific folder or project
+
+        https://developers.wrike.com/api/v4/comments/#get-comments
+      parameters:
+        - name: plainText
+          in: query
+          schema:
+            type: string
+          description: |
+            Optional
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Comments
+      summary: Create Comments on Folder or Project
+      description: |-
+        Create a comment on a folder or project
+
+        https://developers.wrike.com/api/v4/comments/#create-comment
+      requestBody:
+        content: {}
+      parameters:
+        - name: text
+          in: query
+          schema:
+            type: string
+          example: This is a new comment <b>with></b> HTML formatting
+        - name: plainText
+          in: query
+          schema:
+            type: boolean
+          example: 'false'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /tasks/IEACW7SVKQPX4WGU/comments:
+    get:
+      tags:
+        - Comments
+      summary: Get Comments on Task
+      description: |-
+        Get all on a specific task
+
+        https://developers.wrike.com/api/v4/comments/#get-comments
+      parameters:
+        - name: plainText
+          in: query
+          schema:
+            type: string
+          description: |
+            Optional
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Comments
+      summary: Create Comments on Task with mention
+      description: |-
+        Create a comment on a task with @mention
+
+        https://developers.wrike.com/api/v4/comments/#create-comment
+      requestBody:
+        content: {}
+      parameters:
+        - name: text
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: >-
+            This is a new comment <b>to</b> <a class="stream-user-id avatar"
+            rel="KUAFY3BJ">@John Doe</a>
+        - name: plainText
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'false'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /comments/IEACW7SVIMJUJRHT,IEACW7SVIMJRT2RU:
+    get:
+      tags:
+        - Comments
+      summary: Get Multiple Comments by ID
+      description: |-
+        Get one or more comments
+
+        https://developers.wrike.com/api/v4/comments/#get-comments
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /comments/IEACW7SVIMJVSFUF:
+    put:
+      tags:
+        - Comments
+      summary: Update Comment by ID
+      description: |-
+        Update a specific comment
+
+        https://developers.wrike.com/api/v4/comments/#update-comment
+      requestBody:
+        content: {}
+      parameters:
+        - name: text
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: >-
+            This is a new comment <b>to</b> <a class="stream-user-id avatar"
+            rel="KUAFY3BJ">@John Dole</a>
+        - name: plainText
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'false'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Comments
+      summary: Delete a Comment
+      description: |-
+        Update a specific comment
+
+        https://developers.wrike.com/api/v4/comments/#delete-comment
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /tasks/IEACW7SVKQPZDTPF/dependencies:
+    get:
+      tags:
+        - Dependencies
+      summary: Query Task Dependencies
+      description: |-
+        Get all dependencies for a specific task
+
+        https://developers.wrike.com/api/v4/dependencies/#query-dependencies
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Dependencies
+      summary: Create Dependency
+      description: |-
+        Create a new dependency on a task
+
+        Provide relationType and one of predecessorId or successorId
+
+        https://developers.wrike.com/api/v4/dependencies/#create-dependency
+      requestBody:
+        content: {}
+      parameters:
+        - name: predecessorId
+          in: query
+          schema:
+            type: string
+          description: Required (Only one of predecessorId or successorId can be used)
+        - name: successorId
+          in: query
+          schema:
+            type: string
+          description: Required (Only one of predecessorId or successorId can be used)
+          example: IEACW7SVKQPZEWKI
+        - name: relationType
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: FinishToStart
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /dependencies/IEACW7SVIUPZDTPFKMPZEWKI,IEACW7SVIUPZEV3BKMPZDTPF:
+    get:
+      tags:
+        - Dependencies
+      summary: Query Dependency Details
+      description: |-
+        Get details for up to 100 dependencies
+
+        https://developers.wrike.com/api/v4/dependencies/#query-dependencies
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /dependencies/IEACW7SVIUPZDTPFKMPZEWKI:
+    put:
+      tags:
+        - Dependencies
+      summary: Modify Dependency
+      description: |-
+        Modify a specific dependency and change the relationType
+
+        https://developers.wrike.com/api/v4/dependencies/#modify-dependency
+      requestBody:
+        content: {}
+      parameters:
+        - name: relationType
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: FinishToFinish
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Dependencies
+      summary: Delete Dependency
+      description: |-
+        Delete a dependency
+
+        https://developers.wrike.com/api/v4/dependencies/#delete-dependency
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /timelogs:
+    get:
+      tags:
+        - Timelogs
+      summary: Query Timelog
+      description: >-
+        Get all timelogs 
+
+        * shared with authenticated user (no further changes)
+
+        * for specific user (add /contacts/<contactid>) - see example below
+
+        * in specific folder (add /folders/<folderid>)
+
+        * in specific task (add /tasks/<taskid>)
+
+        * for a specific timelog category (add
+        /timelog_categories/<timelog_category_id>) - see example below
+
+
+        You can filter on billingType of you have Wrike Resource and add
+        billingType to the return result by adding "fields = [billingType]"
+
+
+        If you want to get the timelogs for the current authenticated user,
+        simply replace the contact ID with me - similar to the Query Contacts
+        method
+
+
+        https://developers.wrike.com/api/v4/timelogs/#query-timelogs
+      parameters:
+        - name: trackedDate
+          in: query
+          schema:
+            type: string
+          example: '{"start":"2020-04-01","end":"2020-04-30"}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /contacts/KUAFY3BJ/timelogs:
+    get:
+      tags:
+        - Timelogs
+      summary: Query Timelog for Contact
+      description: >-
+        Get all timelogs for a specific Contact (user)
+
+
+        You can filter on billingType of you have Wrike Resource and add
+        billingType to the return result by adding "fields = [billingType]"
+
+
+        If you want to get the timelogs for the current authenticated user,
+        simply replace the contact ID with me - similar to the Query Contacts
+        method
+
+
+        https://developers.wrike.com/api/v4/timelogs/#query-timelogs
+      parameters:
+        - name: trackedDate
+          in: query
+          schema:
+            type: string
+          example: '{"start":"2020-04-01","end":"2020-04-30"}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /timelog_categories/IEACW7SVOQAADXMX/timelogs:
+    get:
+      tags:
+        - Timelogs
+      summary: Query Timelog by Timelog Category
+      description: >-
+        Get all timelogs 
+
+        * shared with authenticated user (no further changes)
+
+        * for specific user (see next example)
+
+        * in specific folder (add /folders/<folderid>)
+
+        * in specific task (add /tasks/<taskid>)
+
+
+        You can filter on billingType of you have Wrike Resource and add
+        billingType to the return result by adding "fields = [billingType]"
+
+
+        If you want to get the timelogs for the current authenticated user,
+        simply replace the contact ID with me - similar to the Query Contacts
+        method
+
+
+        https://developers.wrike.com/api/v4/timelogs/#query-timelogs
+      parameters:
+        - name: trackedDate
+          in: query
+          schema:
+            type: string
+          example: '{"start":"2020-04-01","end":"2020-04-30"}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /tasks/IEACW7SVKQPX4WGU/timelogs:
+    get:
+      tags:
+        - Timelogs
+      summary: Query Timelog for Task by ID (WR)
+      description: |-
+        Get all timelogs for Task and include [exportStatus]
+
+        This is only supported if you have Wrike Resource
+
+        https://developers.wrike.com/api/v4/timelogs/#query-timelogs
+      parameters:
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: '[exportStatus,billingType]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Timelogs
+      summary: Create Timelog
+      description: >-
+        Create a new timelog entry on a task
+
+
+        If you have Wrike Resource, you can add billingType to the result set.
+        See below
+
+
+        You can only create timelog entries for the currently authenticated user
+
+
+        https://developers.wrike.com/api/v4/timelogs/#modify-timelog
+      requestBody:
+        content: {}
+      parameters:
+        - name: comment
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: Worked on HDL
+        - name: hours
+          in: query
+          schema:
+            type: number
+          description: Required
+          example: '2.0'
+        - name: trackedDate
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: '2020-07-02'
+        - name: plainText
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'true'
+        - name: categoryId
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: IEACW7SVOQAADXMX
+        - name: fields
+          in: query
+          schema:
+            type: string
+          description: Optional (Wrike Resource Only)
+          example: '[billingType]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /timelogs/IEACW7SVJQAFOXYV:
+    put:
+      tags:
+        - Timelogs
+      summary: Update number of hours of Timelog Entry
+      description: |-
+        Update the reported number of hours of a timelog entry
+
+        https://developers.wrike.com/api/v4/timelogs/#modify-timelog
+      requestBody:
+        content: {}
+      parameters:
+        - name: hours
+          in: query
+          schema:
+            type: number
+          example: '2.0'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /timelogs/IEACW7SVJQAFPLOW:
+    delete:
+      tags:
+        - Timelogs
+      summary: Delete Timelog
+      description: |-
+        Delete a timelog entry
+
+        https://developers.wrike.com/api/v4/timelogs/#delete-timelog
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /timelog_categories:
+    get:
+      tags:
+        - Timelog Categories
+      summary: Query TImelog Categories
+      description: >-
+        Get a list of all timelog categories
+
+
+        https://developers.wrike.com/api/v4/timelog-categories/#query-timelog-categories
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /attachments:
+    get:
+      tags:
+        - Attachments
+      summary: Get Attachments
+      description: |-
+        Get all attachments
+
+        https://developers.wrike.com/api/v4/attachments/#get-attachments
+      parameters:
+        - name: versions
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'true'
+        - name: createdDate
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '{"start":"2020-07-01T00:00:00Z","end":"2020-07-02T07:53:33Z"}'
+        - name: withUrls
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'true'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /folders/IEACW7SVI4PZXTGO/attachments:
+    get:
+      tags:
+        - Attachments
+      summary: Get Attachments on Folder or Project
+      description: |-
+        Get all attachments on a folder or project
+
+        https://developers.wrike.com/api/v4/attachments/#get-attachments
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /tasks/IEACW7SVKQPZXU7M/attachments:
+    get:
+      tags:
+        - Attachments
+      summary: Get Attachments on Task
+      description: |-
+        Get all attachments on a Task
+
+        https://developers.wrike.com/api/v4/attachments/#get-attachments
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /attachments/IEACW7SVIYETHGA5:
+    get:
+      tags:
+        - Attachments
+      summary: Get Attachments details
+      description: |-
+        Get details of one or more attachments
+
+        For more attachments add comma separated list. Up to 100 IDs
+
+        https://developers.wrike.com/api/v4/attachments/#get-attachments
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - Attachments
+      summary: Update Attachment
+      description: |-
+        Update an existing Wrike attachment with a new version
+
+        https://developers.wrike.com/api/v4/attachments/#update-attachment
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Attachments
+      summary: Delete Attachment
+      description: |-
+        Delete an existing Wrike attachment
+
+        Be aware, the attachment **cannot** be recovered from the recycle bin. 
+
+
+        https://developers.wrike.com/api/v4/attachments/#delete-attachment
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /attachments/IEACW7SVIYETHGA5/download/Lorem Ipsum.docx:
+    get:
+      tags:
+        - Attachments
+      summary: Download Wrike Attachment
+      description: >-
+        Download the attachment content. 
+
+
+        In this example the contant will be downloaded with "Lorem Ipsum.docx"
+        as the name of the file
+
+
+        https://developers.wrike.com/api/v4/attachments/#get-attachments
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /attachments/IEACW7SVIYEOFMU2/preview/screenshot.jpeg:
+    get:
+      tags:
+        - Attachments
+      summary: Download Wrike Attachment Preview
+      description: >-
+        Download the attachment preview. 
+
+
+        The example will be created as Content-Type 'image/png' and filename
+        will be set as screenshot.jpeg
+
+
+        The preview will be 300px wide and hight will be auto
+
+
+        https://developers.wrike.com/api/v4/attachments/#download-attachment-preview
+      parameters:
+        - name: size
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: w300
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /attachments/IEACW7SVIYEOFMU2/url:
+    get:
+      tags:
+        - Attachments
+      summary: Get Access URL for Attachment
+      description: >-
+        Get the access url that can be used to download the attachment
+
+
+        https://developers.wrike.com/api/v4/attachments/#get-access-url-for-attachment
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /tasks/IEACW7SVKQPX4WGU/attachments:
+    post:
+      tags:
+        - Attachments
+      summary: Create Wrike Attachment on Task
+      description: |-
+        Create a new attachment on a Wrike task
+
+        https://developers.wrike.com/api/v4/attachments/#create-wrike-attachment
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /folders/IEACW7SVI4OMYHGQ/attachments:
+    post:
+      tags:
+        - Attachments
+      summary: Create Wrike Attachment on Folder or Project
+      description: |-
+        Create a new attachment on a Wrike folder or project
+
+        https://developers.wrike.com/api/v4/attachments/#create-wrike-attachment
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /version:
+    get:
+      tags:
+        - Versions
+      summary: API Version
+      description: |-
+        Get the current API Version of the API
+
+        https://developers.wrike.com/api/v4/version/#api-version
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /ids:
+    get:
+      tags:
+        - IDs
+      summary: API V2 to V4
+      description: >-
+        Convert the V2 IDs used in the UI to the V4 IDs used by the API
+
+
+        Change the type to match the type of object you are looking to comverts.
+        You can convert multiple IDs by providing a comma separated list of IDs
+
+
+        https://developers.wrike.com/api/v4/ids/#legacy-api-v2-ids-converter
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: ApiV2Folder
+        - name: ids
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: '[344739029]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /colors:
+    get:
+      tags:
+        - Colors
+      summary: Query Color
+      description: |-
+        Get the color name - code mapping
+
+        https://developers.wrike.com/api/v4/colors/#query-colors
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /spaces:
+    get:
+      tags:
+        - Spaces
+      summary: Get Spaces
+      description: |-
+        Get a list of all spaces visible to the authenticated user
+
+        https://developers.wrike.com/api/v4/spaces/#get-spaces
+      parameters:
+        - name: withArchived
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'false'
+        - name: userIsMember
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'false'
+        - name: fields
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[members]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Spaces
+      summary: Create Space
+      description: |-
+        Get Space information by Space ID   
+
+        https://developers.wrike.com/api/v4/spaces/#get-space
+      requestBody:
+        content: {}
+      parameters:
+        - name: accessType
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: Public
+        - name: title
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: MyTeam
+        - name: members
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: >-
+            [{"id":"KUAFY3BJ","accessRoleId":"IEACW7SVND777777","isManager":"true"}]
+        - name: guestRoleId
+          in: query
+          schema:
+            type: string
+          description: Optional
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: '[members]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /spaces/IEACW7SVI4O6BDQE:
+    get:
+      tags:
+        - Spaces
+      summary: Get Space by ID
+      description: |-
+        Get Space information by Space ID   
+
+        https://developers.wrike.com/api/v4/spaces/#get-space
+      parameters:
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: '[members]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /spaces/IEACW7SVI4PZW7GW:
+    put:
+      tags:
+        - Spaces
+      summary: Update Space
+      description: |-
+        Update a specific Space
+
+        https://developers.wrike.com/api/v4/spaces/#update-space
+      requestBody:
+        content: {}
+      parameters:
+        - name: accessType
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: Public
+        - name: title
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: MyTeam
+        - name: membersAdd
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: >-
+            [{"id":"KUAHPAGA","accessRoleId":"IEACW7SVND777777","isManager":"true"}]
+        - name: membersUpdate
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: >-
+            [{"id":"KUAFY3BJ","accessRoleId":"IEACW7SVND777777","isManager":"true"}]
+        - name: membersRemove
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: >-
+            [{"id":"KUAFY3BJ","accessRoleId":"IEACW7SVND777777","isManager":"true"}]
+        - name: guestRoleId
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: IEACW7SVND777777
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: '[members]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /data_export:
+    get:
+      tags:
+        - Data Export
+      summary: Get Data Export
+      description: |-
+        Get the last completed Data Export
+
+        https://developers.wrike.com/api/v4/data-export/#get-data-export
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Data Export
+      summary: Refresh Data Export
+      description: >-
+        Force a new data export generation (if it is not in progress already). 
+
+        * 202 code is returned in case new export generation is started. 
+
+        * Data export can be requested no sooner than 1 hour after last
+        successful data export. 
+
+        * If there is fresh data export already, 200 code and latest export in
+        format similar to [GET] /data_export is returned.
+
+
+        (https://developers.wrike.com/api/v4/data-export/#refresh-data-export)
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /data_export/IEACW7SVMUAARYQS:
+    get:
+      tags:
+        - Data Export
+      summary: Get Data Export by ID
+      description: |-
+        Get a specific Data Export
+
+        https://developers.wrike.com/api/v4/data-export/#get-data-export
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /data_export_schema:
+    get:
+      tags:
+        - Data Export
+      summary: Get Data Export Schema
+      description: >-
+        Get data export schema specified by version.
+
+
+        (https://developers.wrike.com/api/v4/data-export/#get-data-export-schema)
+      parameters:
+        - name: version
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: V1
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /access_roles:
+    get:
+      tags:
+        - Access Roles
+      summary: Get Access Roles
+      description: |-
+        Get a list of all access roles
+
+        (https://developers.wrike.com/api/v4/access-roles/#get-access-roles)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /async_job/IEACW7SVNJLDMMK2NZBFUSA:
+    get:
+      tags:
+        - Async Jobs
+      summary: Get Async Job Status
+      description: |-
+        Get the status of an asynchronos job
+
+        Status can be one of [InQueue, InProgress, Completed, Failed]
+
+        https://developers.wrike.com/api/v4/async-job/#get-async-job
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /approvals:
+    get:
+      tags:
+        - Approvals
+      summary: Get Approvals
+      description: >-
+        Reads approvals by filter. When no filter parameters passed returns all
+        approvals shared with a user.
+
+
+        (https://developers.wrike.com/api/v4/approvals/#get-approvals)
+      parameters:
+        - name: statuses
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[Pending]'
+        - name: updatedDate
+          in: query
+          schema:
+            type: string
+          example: '{"start":"2020-01-01T00:00:00Z","end":"2020-07-03T00:00:00Z"}'
+        - name: approvers
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[KUAFY3BJ]'
+        - name: pendingApprovers
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[]'
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Optional
+          example: '100'
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+          description: Optional
+          example: '100'
+        - name: nextPageToken
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /folders/IEACW7SVI4PZXTGO/approvals:
+    get:
+      tags:
+        - Approvals
+      summary: Get Approvals by Folder or Project
+      description: |-
+        Reads all approvals on folder/project.
+
+        (https://developers.wrike.com/api/v4/approvals/#get-approvals)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Approvals
+      summary: Create Approvals on Folder or Project
+      description: >-
+        Create an approval for folder/project. Creates approval in draft status
+        when no approvers assigned. Otherwise creates in pending status.
+        Approvals created via API will not be affected by workflow automation,
+        e.g. task status will not be automatically transitioned when approval
+        finishes.
+
+
+        (https://developers.wrike.com/api/v4/approvals/#create-approval)
+      requestBody:
+        content: {}
+      parameters:
+        - name: description
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: Project Approval
+        - name: dueDate
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '2020-07-05'
+        - name: approvers
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[KUAFY3BJ]'
+        - name: attachments
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[IEACW7SVIYETHV3S]'
+        - name: autoFinishOnApprove
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'true'
+        - name: autoFinishOnReject
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'true'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /tasks/IEACW7SVKQPZXU7M/approvals:
+    get:
+      tags:
+        - Approvals
+      summary: Get Approvals by Task
+      description: |-
+        Reads all approvals on task.
+
+        (https://developers.wrike.com/api/v4/approvals/#get-approvals)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Approvals
+      summary: Create Approvals on Task
+      description: >-
+        Create an approval for task. Creates approval in draft status when no
+        approvers assigned. Otherwise creates in pending status. Approvals
+        created via API will not be affected by workflow automation, e.g. task
+        status will not be automatically transitioned when approval finishes.
+
+
+        (https://developers.wrike.com/api/v4/approvals/#create-approval)
+      requestBody:
+        content: {}
+      parameters:
+        - name: description
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: Project Approval
+        - name: dueDate
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '2020-07-05'
+        - name: approvers
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[KUAFY3BJ]'
+        - name: attachments
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[IEACW7SVIYETHWC7]'
+        - name: autoFinishOnApprove
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'true'
+        - name: autoFinishOnReject
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'true'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /approvals/IEACW7SVMEABQDRJ,IEACW7SVMEABQDBW,IEACW7SVMEABR26X:
+    get:
+      tags:
+        - Approvals
+      summary: Get Approvals by Ids
+      description: |-
+        Reads approvals by ids.
+
+        (https://developers.wrike.com/api/v4/approvals/#get-approvals)
+      parameters:
+        - name: pendingApprovers
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[]'
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Optional
+          example: '100'
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+          description: Optional
+          example: '100'
+        - name: nextPageToken
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /approvals/IEACW7SVMEABR3CQ:
+    put:
+      tags:
+        - Approvals
+      summary: Update Approval
+      description: |-
+        Update a pending approval
+
+        (https://developers.wrike.com/api/v4/approvals/#update-approval)
+      requestBody:
+        content: {}
+      parameters:
+        - name: description
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: New Project Approval
+        - name: dueDate
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '2020-07-06'
+        - name: addApprovers
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[KUAGQUTS]'
+        - name: removeApprovers
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[KUAGQUTS]'
+        - name: addAttachments
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[IEACW7SVIYETHV3S]'
+        - name: removeAttachments
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[IEACW7SVIYETHV3S]'
+        - name: autoFinishOnApprove
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'true'
+        - name: autoFinishOnReject
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'true'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /approvals/IEACW7SVMEABR3AI:
+    delete:
+      tags:
+        - Approvals
+      summary: Cancel Approval
+      description: |-
+        Cancel a pending approval
+
+        (https://developers.wrike.com/api/v4/approvals/#cancel-approval)
+      parameters:
+        - name: dueDate
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '2020-07-05'
+        - name: addApprovers
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[KUAGQUTS]'
+        - name: removeApprovers
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[]'
+        - name: addAttachments
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[IEACW7SVIYETHV3S]'
+        - name: removeAttachments
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[IEACW7SVIYETHV3S]'
+        - name: autoFinishOnApprove
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'true'
+        - name: autoFinishOnReject
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'true'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /workschedules:
+    get:
+      tags:
+        - Work Schedules
+      summary: Get Workschedules
+      description: >-
+        Returns list of all work schedules in account.
+
+
+        (https://developers.wrike.com/api/v4/work-schedules/#query-work-schedules)
+      parameters:
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: '[userIds]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Work Schedules
+      summary: Create Workschedule
+      description: >-
+        Create a new workschedule
+
+
+        (https://developers.wrike.com/api/v4/work-schedules/#create-work-schedule)
+      requestBody:
+        content: {}
+      parameters:
+        - name: title
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: Friday and Saturday off
+        - name: workweek
+          in: query
+          schema:
+            type: string
+          example: >-
+            [{"dayOfWeek":"Sun","isWorkDay":true},{"dayOfWeek":"Mon","isWorkDay":true},{"dayOfWeek":"Tue","isWorkDay":true},{"dayOfWeek":"Wed","isWorkDay":true},{"dayOfWeek":"Thu","isWorkDay":true},{"dayOfWeek":"Fri","isWorkDay":false},{"dayOfWeek":"Sat","isWorkDay":false}]
+        - name: addUsers
+          in: query
+          schema:
+            type: string
+          example: '[KUAGQUTS,KUAHUBHL]'
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: '[userIds]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /workschedules/IEACW7SVMIACAOHL:
+    get:
+      tags:
+        - Work Schedules
+      summary: Get Workschedule by ID
+      description: >-
+        Get work schedule by ID
+
+
+        (https://developers.wrike.com/api/v4/work-schedules/#query-work-schedules)
+      parameters:
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: '[userIds]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /workschedules/IEACW7SVMIACAO6L:
+    put:
+      tags:
+        - Work Schedules
+      summary: Update Workschedule
+      description: >-
+        Update a workschedule by ID
+
+
+        (https://developers.wrike.com/api/v4/work-schedules/#update-work-schedule)
+      requestBody:
+        content: {}
+      parameters:
+        - name: title
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: Friday and Saturday Off
+        - name: workweek
+          in: query
+          schema:
+            type: string
+          example: >-
+            [{"dayOfWeek":"Sun","isWorkDay":true},{"dayOfWeek":"Mon","isWorkDay":true},{"dayOfWeek":"Tue","isWorkDay":true},{"dayOfWeek":"Wed","isWorkDay":true},{"dayOfWeek":"Thu","isWorkDay":true},{"dayOfWeek":"Fri","isWorkDay":false},{"dayOfWeek":"Sat","isWorkDay":false}]
+        - name: addUsers
+          in: query
+          schema:
+            type: string
+          example: '[KUAFZQDP]'
+        - name: removeUsers
+          in: query
+          schema:
+            type: string
+          example: '[KUAGQUTS]'
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: '[userIds]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Work Schedules
+      summary: Detele Workschedule
+      description: >-
+        Delete a workschedule by ID
+
+
+        (https://developers.wrike.com/api/v4/work-schedules/#delete-work-schedule)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /workschedule_exclusions/IEACW7SVMQAABGTC:
+    get:
+      tags:
+        - Work Schedule Exceptions
+      summary: Get Work Schedule Exceptions
+      description: >-
+        Get a specific work schedule exclusion
+
+
+        (https://developers.wrike.com/api/v4/work-schedule-exceptions/#query-work-schedule-exceptions)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /workschedules/IEACW7SVMIACAOHL/workschedule_exclusions:
+    get:
+      tags:
+        - Work Schedule Exceptions
+      summary: Get Work Schedule Exceptions by ID
+      description: >-
+        Get all exceptions created on a specific workschedule
+
+
+        (https://developers.wrike.com/api/v4/work-schedule-exceptions/#query-work-schedule-exceptions)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Work Schedule Exceptions
+      summary: Create Work Schedule Exception
+      description: >-
+        Create a new work schedule exclusion on a work schedule
+
+
+        (https://developers.wrike.com/api/v4/work-schedule-exceptions/#create-work-schedule-exception)
+      requestBody:
+        content: {}
+      parameters:
+        - name: fromDate
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: '2020-08-20'
+        - name: toDate
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: '2020-08-21'
+        - name: exclusionType
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: OtherEvent
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /workschedule_exclusions/IEACW7SVMQAABGTD:
+    put:
+      tags:
+        - Work Schedule Exceptions
+      summary: Update Work Schedule Exception
+      description: >-
+        Update a work schedule exclusion on a work schedule
+
+
+        (https://developers.wrike.com/api/v4/work-schedule-exceptions/#update-work-schedule-exception)
+      requestBody:
+        content: {}
+      parameters:
+        - name: fromDate
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: '2020-08-20'
+        - name: toDate
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: '2020-08-23'
+        - name: exclusionType
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: OtherEvent
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Work Schedule Exceptions
+      summary: Delete Work Schedule Exception
+      description: >-
+        Delete a work schedule exclusion  by ID
+
+
+        (https://developers.wrike.com/api/v4/work-schedule-exceptions/#delete-work-schedule-exception)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user_schedule_exclusions:
+    get:
+      tags:
+        - User Schedule Exceptions
+      summary: Get User Schedule Exceptions
+      description: >-
+        Get all user level work schedule exclusions
+
+
+        (https://developers.wrike.com/api/v4/user-schedule-exceptions/#query-user-schedule-exception)
+      parameters:
+        - name: dateRange
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '{"start":"2020-01-01","end":"2020-12-31"}'
+        - name: userIds
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[KUAHUBHL]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - User Schedule Exceptions
+      summary: Create User Schedule Exception
+      description: >-
+        Create a user level work schedule exclusion
+
+
+        (https://developers.wrike.com/api/v4/user-schedule-exceptions/#create-user-schedule-exception)
+      requestBody:
+        content: {}
+      parameters:
+        - name: userId
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: KUAHUBHL
+        - name: fromDate
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: '2020-09-07'
+        - name: toDate
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: '2020-09-11'
+        - name: exclusionType
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: VacationPTO
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user_schedule_exclusions/IEACW7SVMYAADPDY:
+    get:
+      tags:
+        - User Schedule Exceptions
+      summary: Get User Schedule Exception by ID
+      description: >-
+        Get a user level work schedule exclusions by ID
+
+
+        (https://developers.wrike.com/api/v4/user-schedule-exceptions/#query-user-schedule-exception)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user_schedule_exclusions/IEACW7SVMYAADPDZ:
+    put:
+      tags:
+        - User Schedule Exceptions
+      summary: Update User Schedule Exception
+      description: >-
+        Update user level work schedule exclusion by ID
+
+
+        (https://developers.wrike.com/api/v4/user-schedule-exceptions/#update-user-schedule-exception)
+      requestBody:
+        content: {}
+      parameters:
+        - name: fromDate
+          in: query
+          schema:
+            type: string
+          example: '2020-08-19'
+        - name: toDate
+          in: query
+          schema:
+            type: string
+          example: '2020-08-23'
+        - name: exclusionType
+          in: query
+          schema:
+            type: string
+          example: VacationPTO
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - User Schedule Exceptions
+      summary: Delete User Schedule Exception
+      description: >-
+        Delete user level work schedule exclusion by ID
+
+
+        (https://developers.wrike.com/api/v4/user-schedule-exceptions/#delete-user-schedule-exception)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /webhooks:
+    get:
+      tags:
+        - Webhooks
+      summary: Get all Webhooks
+      description: |-
+        Get a list of all webhooks created using the same API Token
+
+        (https://developers.wrike.com/webhooks/)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /webhooks/IEACW7SVJAAAGK2P:
+    get:
+      tags:
+        - Webhooks
+      summary: Get Webhook by ID
+      description: |-
+        Show details of a specific webhook by ID. 
+
+        You can only access webhooks created with the same API Token
+
+        (https://developers.wrike.com/webhooks/)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /folders/IEACW7SVI4PMYIO6/webhooks:
+    post:
+      tags:
+        - Webhooks
+      summary: Create a Webhook on Folder or Project
+      description: |-
+        Get a list of all webhooks created using the same API Token
+
+        https://developers.wrike.com/webhooks/
+      requestBody:
+        content: {}
+      parameters:
+        - name: hookUrl
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: https://webhook.site/4fe9e313-191b-4224-be57-3bb0f6cce5d7
+        - name: events
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[TaskCreated]'
+        - name: recursive
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'true'
+        - name: secret
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: 8hojns-089YAS0idas=D90HA0I
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /spaces/IEACW7SVI4OKD3FN/webhooks:
+    post:
+      tags:
+        - Webhooks
+      summary: Create a Webhook on Space
+      description: |-
+        Get a list of all webhooks created using the same API Token
+
+        https://developers.wrike.com/webhooks/
+      requestBody:
+        content: {}
+      parameters:
+        - name: hookUrl
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: https://webhook.site/4fe9e313-191b-4224-be57-3bb0f6cce5d7
+        - name: events
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: '[TaskCreated]'
+        - name: recursive
+          in: query
+          schema:
+            type: boolean
+          description: Optional
+          example: 'true'
+        - name: secret
+          in: query
+          schema:
+            type: string
+          description: Optional
+          example: 8hojns-089YAS0idas=D90HA0I
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /webhooks/IEACW7SVJAAAGRHC:
+    put:
+      tags:
+        - Webhooks
+      summary: Update Webhook State
+      description: >-
+        Update the state of a webhook
+
+
+        If you shut down your endpoint or it is not accessible via the internet,
+        then we automatically suspend the webhook after 3 retries. 
+
+
+        Call this method with status=Active to enable the Webhook again
+
+
+        https://developers.wrike.com/webhooks/
+      requestBody:
+        content: {}
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+          description: Required
+          example: Active
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v4/webhooks/IEACW7SVJAAAGRHC:
+    delete:
+      tags:
+        - Webhooks
+      summary: Delete Webhook
+      description: |-
+        Delete a webhook permanently
+
+        You can only access webhooks created with the same API Token
+
+        https://developers.wrike.com/webhooks/
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /tasks/IEABYD5UKQKIA5MK:
+    put:
+      tags:
+        - Meta Data
+      summary: Update Metadata
+      requestBody:
+        content: {}
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: metadata
+          in: query
+          schema:
+            type: string
+          example: '[{"key":"SFDCID","value":"12345"}]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /contacts/KUAD6YLW:
+    put:
+      tags:
+        - Meta Data
+      summary: Meta Data on Contact
+      requestBody:
+        content: {}
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: metadata
+          in: query
+          schema:
+            type: string
+          example: '[{"key":"skills","value":"ux,java"}]'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
